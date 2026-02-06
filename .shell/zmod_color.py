@@ -7,8 +7,6 @@ import subprocess
 FFCONFIG='/usr/prog/config/Adventurer5M.json'
 FILE_CONFIG='/usr/data/config/mod_data/file.json'
 
-ALLOWED_TOOL_COUNT = 16
-
 TRANSLATIONS = {
     'ru': {
         'cancel': "Отмена",
@@ -745,6 +743,16 @@ class zmod_color:
                 gcmd.respond_raw("// action:prompt_show")
         else:
             gcmd.respond_raw(self._t('no_response', json.dumps(response_data)))
+            
+    def get_allowed_tool_count(self, gcmd):
+        save_variables = self.printer.lookup_object('save_variables', None)
+        allowed_tool_count = 4
+        if save_variables != None and 'allowed_tool_count' in save_variables.allVariables and save_variables.allVariables['allowed_tool_count'] > 0:
+            allowed_tool_count = save_variables.allVariables['allowed_tool_count']
+        else:
+            gcmd.respond_raw(f"SAVE_VARIABLE VARIABLE=allowed_tool_count VALUE={allowed_tool_count}")
+            
+        return allowed_tool_count
 
     def cmd_SET_ZCOLOR(self, gcmd):
         silent = gcmd.get_int('SILENT', 0)
@@ -768,15 +776,17 @@ class zmod_color:
         else:
             status_code, response_data = self.get_printer_data_detail()
         if status_code:
+            allowed_tool_count = self.get_allowed_tool_count(gcmd)
+          
             result = self.parse_printer_response(response_data)
 
             if not self.ifs:
                 silent = 2
             else:
-                default_values = [result[i]['ID'] if i < len(result) else result[-1]['ID'] for i in range(ALLOWED_TOOL_COUNT)] if result else [1] * ALLOWED_TOOL_COUNT
+                default_values = [result[i]['ID'] if i < len(result) else result[-1]['ID'] for i in range(allowed_tool_count)] if result else [1] * allowed_tool_count
                 tools = []
-                for i in range(ALLOWED_TOOL_COUNT):
-                  tools += [gcmd.get_int('T' + str(i), int(default_values[i]))]
+                for i in range(allowed_tool_count):
+                  tools += [gcmd.get_int(f"T{i}", int(default_values[i]))]
 
                 for i, tool in enumerate(tools):
                     if tool < 1 or tool > 4:
@@ -784,8 +794,8 @@ class zmod_color:
 
             if silent == 0:
                 current_tools_param_text = ""
-                for i in range(ALLOWED_TOOL_COUNT):
-                    current_tools_param_text += f" T{str(i)}={tools[i]}"
+                for i in range(allowed_tool_count):
+                    current_tools_param_text += f" T{i}={tools[i]}"
                 current_tools_param_text = current_tools_param_text[1:]
               
                 gcmd.respond_raw("// action:prompt_end")
@@ -806,9 +816,15 @@ class zmod_color:
                 gcmd.respond_raw("// action:prompt_button_group_end")
 
                 # gcmd.respond_raw(f"// action:prompt_text {self._t('prompt_map_color')}")
+                
+                buttons_per_group = 4
+                if allowed_tool_count < 10:
+                  buttons_per_group = 3
+                if allowed_tool_count < 7:
+                  buttons_per_group = 2
 
                 for tool_idx, tool_val in enumerate(tools):
-                    if tool_idx % 4 == 0:
+                    if tool_idx % buttons_per_group == 0:
                         gcmd.respond_raw("// action:prompt_button_group_start")
                     for slot_info in result:
                         if int(slot_info['ID']) != tool_val:
@@ -825,7 +841,7 @@ class zmod_color:
                             f"// action:prompt_button {btn_text}|"
                             f"CHANGE_T_ZCOLOR T={tool_idx} {params}|primary|{slot_info['HEX']}"
                         )
-                    if tool_idx % 4 == 3 or tool_idx == ALLOWED_TOOL_COUNT - 1:
+                    if tool_idx % buttons_per_group == (buttons_per_group - 1) or tool_idx == allowed_tool_count - 1:
                         gcmd.respond_raw("// action:prompt_button_group_end")
 
                 gcmd.respond_raw(
@@ -913,13 +929,14 @@ class zmod_color:
         else:
             status_code, response_data = self.get_printer_data_detail()
         if status_code:
+            allowed_tool_count = self.get_allowed_tool_count(gcmd)
             result = self.parse_printer_response(response_data)
 
-            default_values = [result[i]['ID'] if i < len(result) else result[-1]['ID'] for i in range(ALLOWED_TOOL_COUNT)] if result else [1] * ALLOWED_TOOL_COUNT
+            default_values = [result[i]['ID'] if i < len(result) else result[-1]['ID'] for i in range(allowed_tool_count)] if result else [1] * allowed_tool_count
 
             tools = []
-            for i in range(ALLOWED_TOOL_COUNT):
-              tools += [gcmd.get_int('T' + str(i), int(default_values[i]))]
+            for i in range(allowed_tool_count):
+              tools += [gcmd.get_int(f"T{i}", int(default_values[i]))]
 
             for i, tool in enumerate(tools):
                 if tool < 1 or tool > 4:
@@ -1041,25 +1058,26 @@ class zmod_color:
         else:
             status_code, response_data = self.get_printer_data_detail()
         if status_code:
+            allowed_tool_count = self.get_allowed_tool_count(gcmd)
             result = self.parse_printer_response(response_data)
 #            gcmd.respond_raw(json.dumps(response_data, indent=2))
 
-            default_values = [result[i]['ID'] if i < len(result) else result[-1]['ID'] for i in range(ALLOWED_TOOL_COUNT)] if result else [1] * ALLOWED_TOOL_COUNT
+            default_values = [result[i]['ID'] if i < len(result) else result[-1]['ID'] for i in range(allowed_tool_count)] if result else [1] * allowed_tool_count
             tools = []
-            for i in range(ALLOWED_TOOL_COUNT):
-              tools += [gcmd.get_int('T' + str(i), int(default_values[i]))]
+            for i in range(allowed_tool_count):
+              tools += [gcmd.get_int(f"T{i}", int(default_values[i]))]
 
             for i, tool in enumerate(tools):
                 if tool < 1 or tool > 4:
                     raise gcmd.error(self._t('error_tool', i, tool))
 
             ztool = gcmd.get_int('T', 0)
-            if ztool < 0 or ztool >= ALLOWED_TOOL_COUNT:
+            if ztool < 0 or ztool >= allowed_tool_count:
                 raise gcmd.error(self._t('error_tool', '', ztool))
 
             
             params = f"FILENAME=\"{fname}\" LEVELING={leveling}"
-            for i in range(ALLOWED_TOOL_COUNT):
+            for i in range(allowed_tool_count):
                 if i == ztool:
                     continue
                 params += f" T{i}={tools[i]}"
