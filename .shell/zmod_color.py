@@ -1,3 +1,4 @@
+import ast
 import re
 import json
 import requests
@@ -753,6 +754,90 @@ class zmod_color:
             gcmd.respond_raw(f"SAVE_VARIABLE VARIABLE=allowed_tool_count VALUE={allowed_tool_count}")
             
         return allowed_tool_count
+      
+    def get_used_colors(self, gcmd):
+        # Returns list of tuples. (tool ID, color, material)
+        
+        save_variables = self.printer.lookup_object('save_variables', None)
+        if save_variables == None or 'scan_file_colors' not in save_variables.allVariables:
+            scan_files_setting = 0
+        else:
+            scan_files_setting = save_variables.allVariables['scan_file_colors']
+        
+        gcmd.respond_raw("// Loading file colors")
+        
+        fname = gcmd.get('FILENAME', '')
+        if fname == '':
+            raise gcmd.error(self._t('error_no_filename'))
+                    
+        result_colors = []
+        highest_result_color = -1
+        filament_color_line = ''
+        filament_type_line = ''
+        
+        color_data_line = ''
+        
+        with open(f"/usr/data/gcodes/{fname}", 'r') as f:
+            for line_raw in f:
+                line = line_raw.strip().casefold()
+                if line.startswith('t'):
+                    try:
+                        index = int(line[1:])
+                        if index not in result_colors:
+                           result_colors += [index]
+                        highest_result_color = max(highest_result_color, index)
+                    except:
+                        pass
+                if line.startswith(';'):
+                    if line.startswith('; filament_colour'):
+                        _, _, filament_color_line = line.partition('=')
+                    if line.startswith('; filament_type'):
+                        _, _, filament_type_line = line.partition('=')
+                    if line.startswith('; zmod_color_data'):
+                        _, _, color_data_line = line.partition('=')
+                        break
+                    if line.startswith('; header_block_end'):
+                        if scan_files_setting == 0:
+                            gcmd.respond_raw("// Pre-prepared color data not found")
+                            tool_count = self.get_allowed_tool_count(gcmd)
+                            return [(i, '', '') for i in range(tool_count)]
+                        else:
+                            gcmd.respond_raw("// Pre-prepared color data not found. Scanning file")
+
+        if color_data_line == '':
+            filament_colors = filament_color_line.strip().split(';')
+            filament_types = filament_type_line.strip().split(';')
+
+            if filament_colors[0] == '':
+                filament_colors = []
+            if filament_types[0] == '':
+                filament_types = []
+
+            if len(result_colors) == 0:
+              result_colors = [0]
+              highest_result_color = 0
+
+            if len(filament_colors) <= highest_result_color:
+                filament_colors += [''] * (highest_result_color + 1 - len(filament_colors))
+
+            if len(filament_types) <= highest_result_color:
+                filament_types += [''] * (highest_result_color + 1 - len(filament_types))
+
+            gcmd.respond_raw("// Scanning file colors complete")
+        else:
+            color_data_params = color_data_line.strip().split('|')
+            result_colors = [int(color_index) for color_index in color_data_params[0]]
+            filament_colors = color_data_params[1].split(',')
+            filmanet_types = color_data_params[2].split(',')
+            
+            gcmd.respond_raw("// Pre-prepared color data found")
+          
+        gcmd.respond_raw(f"// Used color slots: {str(result_colors)}")
+        gcmd.respond_raw(f"// Color slots: {str(filament_colors)}")
+        gcmd.respond_raw(f"// Materials: {str(filament_types)}")
+
+        return [(tool_index, filament_colors[tool_index], filament_types[tool_index]) for tool_index in result_colors]
+        
 
     def cmd_SET_ZCOLOR(self, gcmd):
         silent = gcmd.get_int('SILENT', 0)
@@ -764,6 +849,11 @@ class zmod_color:
         leveling = gcmd.get_int('LEVELING', 0)
         if leveling not in (0, 1):
             raise gcmd.error(self._t('error_leveling', leveling))
+        
+        if gcmd.get_int('ALLOWED_TOOL_COUNT', 0) == 0:
+            self.file_colors = self.get_used_colors(gcmd)
+        file_colors = self.file_colors
+        color_indexes = [file_color[0] for file_color in file_colors]
 
         leveling_text = (
             self._t('prompt_leveling_on')
@@ -776,7 +866,7 @@ class zmod_color:
         else:
             status_code, response_data = self.get_printer_data_detail()
         if status_code:
-            allowed_tool_count = self.get_allowed_tool_count(gcmd)
+            allowed_tool_count = max(file_colors, key=lambda entry: entry[0])[0] + 1
           
             result = self.parse_printer_response(response_data)
 
@@ -792,7 +882,7 @@ class zmod_color:
                     if tool < 1 or tool > 4:
                         raise gcmd.error(self._t('error_tool', i, tool))
 
-            if silent == 0:
+            if silent == 0:                
                 current_tools_param_text = ""
                 for i in range(allowed_tool_count):
                     current_tools_param_text += f" T{i}={tools[i]}"
@@ -812,19 +902,23 @@ class zmod_color:
 
                 gcmd.respond_raw("// action:prompt_button_group_start")
                 color = "006400" if leveling == 1 else "808080"
-                gcmd.respond_raw(f"// action:prompt_button {leveling_text}|SET_ZCOLOR SILENT={silent} FILENAME=\"{fname}\" LEVELING={int(not leveling)} {current_tools_param_text}| |{color}")
+                gcmd.respond_raw(f"// action:prompt_button {leveling_text}|SET_ZCOLOR SILENT={silent} FILENAME=\"{fname}\" LEVELING={int(not leveling)} ALLOWED_TOOL_COUNT={allowed_tool_count} {current_tools_param_text}| |{color}")
                 gcmd.respond_raw("// action:prompt_button_group_end")
 
                 # gcmd.respond_raw(f"// action:prompt_text {self._t('prompt_map_color')}")
                 
                 buttons_per_group = 4
-                if allowed_tool_count < 10:
+                if len(color_indexes) < 10:
                   buttons_per_group = 3
-                if allowed_tool_count < 7:
+                if len(color_indexes) < 7:
                   buttons_per_group = 2
+                  
+                button_index = 0
 
                 for tool_idx, tool_val in enumerate(tools):
-                    if tool_idx % buttons_per_group == 0:
+                    if tool_idx not in color_indexes:
+                        continue
+                    if button_index % buttons_per_group == 0:
                         gcmd.respond_raw("// action:prompt_button_group_start")
                     for slot_info in result:
                         if int(slot_info['ID']) != tool_val:
@@ -835,18 +929,19 @@ class zmod_color:
                             f"{slot_info['ID']}: "
                             f"{slot_info['Material']}{color_name}"
                         )
-                        params = f"LEVELING={leveling} FILENAME=\"{fname}\" {current_tools_param_text}"
+                        params = f"LEVELING={leveling} FILENAME=\"{fname}\" ALLOWED_TOOL_COUNT={allowed_tool_count} {current_tools_param_text}"
                         
                         gcmd.respond_raw(
                             f"// action:prompt_button {btn_text}|"
                             f"CHANGE_T_ZCOLOR T={tool_idx} {params}|primary|{slot_info['HEX']}"
                         )
-                    if tool_idx % buttons_per_group == (buttons_per_group - 1) or tool_idx == allowed_tool_count - 1:
+                    if button_index % buttons_per_group == (buttons_per_group - 1) or tool_idx == allowed_tool_count - 1:
                         gcmd.respond_raw("// action:prompt_button_group_end")
+                    button_index += 1
 
                 gcmd.respond_raw(
                     f"// action:prompt_footer_button {self._t('send_print')}|"
-                    f"PRINT_ZCOLOR LEVELING={leveling} FILENAME=\"{fname}\" "
+                    f"PRINT_ZCOLOR LEVELING={leveling} FILENAME=\"{fname}\" ALLOWED_TOOL_COUNT={allowed_tool_count} "
                     f"{current_tools_param_text}|red"
                 )
                 gcmd.respond_raw(f"// action:prompt_footer_button {self._t('cancel')}|RESPOND TYPE=command MSG=action:prompt_end")
@@ -870,7 +965,7 @@ class zmod_color:
                         )
                 gcmd2 = self.gcode.create_gcode_command("PRINT_ZCOLOR", "PRINT_ZCOLOR", {
                         'LEVELING': leveling, 'FILENAME': fname,
-                        'T0': tools[0], 'T1': tools[1], 'T2': tools[2], 'T3': tools[3]
+                        'T0': tools[0], 'T1': tools[1], 'T2': tools[2], 'T3': tools[3], 'ALLOWED_TOOL_COUNT': 4
                         })
                 self.cmd_PRINT_ZCOLOR(gcmd2)
             elif silent == 2:
@@ -929,7 +1024,7 @@ class zmod_color:
         else:
             status_code, response_data = self.get_printer_data_detail()
         if status_code:
-            allowed_tool_count = self.get_allowed_tool_count(gcmd)
+            allowed_tool_count = gcmd.get_int('ALLOWED_TOOL_COUNT', get_allowed_tool_count())
             result = self.parse_printer_response(response_data)
 
             default_values = [result[i]['ID'] if i < len(result) else result[-1]['ID'] for i in range(allowed_tool_count)] if result else [1] * allowed_tool_count
@@ -1058,7 +1153,7 @@ class zmod_color:
         else:
             status_code, response_data = self.get_printer_data_detail()
         if status_code:
-            allowed_tool_count = self.get_allowed_tool_count(gcmd)
+            allowed_tool_count = gcmd.get_int('ALLOWED_TOOL_COUNT', self.get_allowed_tool_count(gcmd))
             result = self.parse_printer_response(response_data)
 #            gcmd.respond_raw(json.dumps(response_data, indent=2))
 
@@ -1076,7 +1171,7 @@ class zmod_color:
                 raise gcmd.error(self._t('error_tool', '', ztool))
 
             
-            params = f"FILENAME=\"{fname}\" LEVELING={leveling}"
+            params = f"FILENAME=\"{fname}\" LEVELING={leveling} ALLOWED_TOOL_COUNT={allowed_tool_count}"
             for i in range(allowed_tool_count):
                 if i == ztool:
                     continue
