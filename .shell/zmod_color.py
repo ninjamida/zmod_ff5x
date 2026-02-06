@@ -7,6 +7,8 @@ import subprocess
 FFCONFIG='/usr/prog/config/Adventurer5M.json'
 FILE_CONFIG='/usr/data/config/mod_data/file.json'
 
+ALLOWED_TOOL_COUNT = 16
+
 TRANSLATIONS = {
     'ru': {
         'cancel': "Отмена",
@@ -69,7 +71,7 @@ TRANSLATIONS = {
         'prompt_leveling_off': "Leveling Off",
         'prompt_leveling_on': "Leveling On",
         'prompt_map_color': "Map file color to spool",
-        'prompt_material': "Loaded material",
+        'prompt_material': "Select print materials",
         'reset_colors': "Reset colors",
         'select_action': "Select action",
         'select_color': "Select color",
@@ -771,19 +773,21 @@ class zmod_color:
             if not self.ifs:
                 silent = 2
             else:
-                default_values = [result[i]['ID'] if i < len(result) else result[-1]['ID'] for i in range(4)] if result else [1, 1, 1, 1]
-                tools = [
-                    gcmd.get_int('T0', int(default_values[0])),
-                    gcmd.get_int('T1', int(default_values[1])),
-                    gcmd.get_int('T2', int(default_values[2])),
-                    gcmd.get_int('T3', int(default_values[3]))
-                ]
+                default_values = [result[i]['ID'] if i < len(result) else result[-1]['ID'] for i in range(ALLOWED_TOOL_COUNT)] if result else [1] * ALLOWED_TOOL_COUNT
+                tools = []
+                for i in range(ALLOWED_TOOL_COUNT):
+                  tools += [gcmd.get_int('T' + str(i), int(default_values[i]))]
 
                 for i, tool in enumerate(tools):
                     if tool < 1 or tool > 4:
                         raise gcmd.error(self._t('error_tool', i, tool))
 
             if silent == 0:
+                current_tools_param_text = ""
+                for i in range(ALLOWED_TOOL_COUNT):
+                    current_tools_param_text += f" T{str(i)}={tools[i]}"
+                current_tools_param_text = current_tools_param_text[1:]
+              
                 gcmd.respond_raw("// action:prompt_end")
                 gcmd.respond_raw(f"// action:prompt_begin {self._t('prompt_material')}")
                 prompt_text = f"Extruder: None ({self.get_current_channel()})"
@@ -794,19 +798,18 @@ class zmod_color:
                             prompt_text = f"Extruder: {slot['ID']}: {slot['Material']}/{slot['Color']}"
                             break
 
-                gcmd.respond_raw(f"// action:prompt_text {fname}")
-
-                gcmd.respond_raw(f"// action:prompt_text {prompt_text}")
+                gcmd.respond_raw(f"// action:prompt_text {fname} | {prompt_text}")
 
                 gcmd.respond_raw("// action:prompt_button_group_start")
                 color = "006400" if leveling == 1 else "808080"
-                gcmd.respond_raw(f"// action:prompt_button {leveling_text}|SET_ZCOLOR SILENT={silent} FILENAME=\"{fname}\" LEVELING={int(not leveling)} T0={tools[0]} T1={tools[1]} T2={tools[2]} T3={tools[3]}| |{color}")
+                gcmd.respond_raw(f"// action:prompt_button {leveling_text}|SET_ZCOLOR SILENT={silent} FILENAME=\"{fname}\" LEVELING={int(not leveling)} {current_tools_param_text}| |{color}")
                 gcmd.respond_raw("// action:prompt_button_group_end")
 
-                gcmd.respond_raw(f"// action:prompt_text {self._t('prompt_map_color')}")
+                # gcmd.respond_raw(f"// action:prompt_text {self._t('prompt_map_color')}")
 
-                gcmd.respond_raw("// action:prompt_button_group_start")
                 for tool_idx, tool_val in enumerate(tools):
+                    if tool_idx % 4 == 0:
+                        gcmd.respond_raw("// action:prompt_button_group_start")
                     for slot_info in result:
                         if int(slot_info['ID']) != tool_val:
                             continue
@@ -816,21 +819,19 @@ class zmod_color:
                             f"{slot_info['ID']}: "
                             f"{slot_info['Material']}{color_name}"
                         )
-                        params = (
-                            f"LEVELING={leveling} FILENAME=\"{fname}\" "
-                            f"T0={tools[0]} T1={tools[1]} "
-                            f"T2={tools[2]} T3={tools[3]}"
-                        )
+                        params = f"LEVELING={leveling} FILENAME=\"{fname}\" {current_tools_param_text}"
+                        
                         gcmd.respond_raw(
                             f"// action:prompt_button {btn_text}|"
                             f"CHANGE_T_ZCOLOR T={tool_idx} {params}|primary|{slot_info['HEX']}"
                         )
-                gcmd.respond_raw("// action:prompt_button_group_end")
+                    if tool_idx % 4 == 3 or tool_idx == ALLOWED_TOOL_COUNT - 1:
+                        gcmd.respond_raw("// action:prompt_button_group_end")
 
                 gcmd.respond_raw(
                     f"// action:prompt_footer_button {self._t('send_print')}|"
                     f"PRINT_ZCOLOR LEVELING={leveling} FILENAME=\"{fname}\" "
-                    f"T0={tools[0]} T1={tools[1]} T2={tools[2]} T3={tools[3]}|red"
+                    f"{current_tools_param_text}|red"
                 )
                 gcmd.respond_raw(f"// action:prompt_footer_button {self._t('cancel')}|RESPOND TYPE=command MSG=action:prompt_end")
                 gcmd.respond_raw("// action:prompt_show")
@@ -885,7 +886,7 @@ class zmod_color:
             gcmd.respond_raw(self._t('no_response', json.dumps(response_data)))
 
     def find_t_code(self, filename):
-        pattern = re.compile(r'^T([0-9])')
+        pattern = re.compile(r'^T(1?[0-9])')
 
         with open(f"{self.virtual_sd.sdcard_dirname}/{filename}", 'r', encoding='utf-8') as file:
             for line in file:
@@ -914,13 +915,11 @@ class zmod_color:
         if status_code:
             result = self.parse_printer_response(response_data)
 
-            default_values = [result[i]['ID'] if i < len(result) else result[-1]['ID'] for i in range(4)] if result else [1, 1, 1, 1]
-            tools = [
-                gcmd.get_int('T0', int(default_values[0])),
-                gcmd.get_int('T1', int(default_values[1])),
-                gcmd.get_int('T2', int(default_values[2])),
-                gcmd.get_int('T3', int(default_values[3]))
-            ]
+            default_values = [result[i]['ID'] if i < len(result) else result[-1]['ID'] for i in range(ALLOWED_TOOL_COUNT)] if result else [1] * ALLOWED_TOOL_COUNT
+
+            tools = []
+            for i in range(ALLOWED_TOOL_COUNT):
+              tools += [gcmd.get_int('T' + str(i), int(default_values[i]))]
 
             for i, tool in enumerate(tools):
                 if tool < 1 or tool > 4:
@@ -1045,30 +1044,25 @@ class zmod_color:
             result = self.parse_printer_response(response_data)
 #            gcmd.respond_raw(json.dumps(response_data, indent=2))
 
-            default_values = [result[i]['ID'] if i < len(result) else result[-1]['ID'] for i in range(4)] if result else [1, 1, 1, 1]
-            tools = [
-                gcmd.get_int('T0', int(default_values[0])),
-                gcmd.get_int('T1', int(default_values[1])),
-                gcmd.get_int('T2', int(default_values[2])),
-                gcmd.get_int('T3', int(default_values[3]))
-            ]
+            default_values = [result[i]['ID'] if i < len(result) else result[-1]['ID'] for i in range(ALLOWED_TOOL_COUNT)] if result else [1] * ALLOWED_TOOL_COUNT
+            tools = []
+            for i in range(ALLOWED_TOOL_COUNT):
+              tools += [gcmd.get_int('T' + str(i), int(default_values[i]))]
 
             for i, tool in enumerate(tools):
                 if tool < 1 or tool > 4:
                     raise gcmd.error(self._t('error_tool', i, tool))
 
             ztool = gcmd.get_int('T', 0)
-            if ztool < 0 or ztool > 3:
+            if ztool < 0 or ztool >= ALLOWED_TOOL_COUNT:
                 raise gcmd.error(self._t('error_tool', '', ztool))
 
-            if ztool == 0:
-                params=f"              T1={tools[1]} T2={tools[2]} T3={tools[3]} FILENAME=\"{fname}\" LEVELING={leveling} "
-            elif ztool == 1:
-                params=f"T0={tools[0]}               T2={tools[2]} T3={tools[3]} FILENAME=\"{fname}\" LEVELING={leveling} "
-            elif ztool == 2:
-                params=f"T0={tools[0]} T1={tools[1]}               T3={tools[3]} FILENAME=\"{fname}\" LEVELING={leveling} "
-            else:
-                params=f"T0={tools[0]} T1={tools[1]} T2={tools[2]}               FILENAME=\"{fname}\" LEVELING={leveling} "
+            
+            params = f"FILENAME=\"{fname}\" LEVELING={leveling}"
+            for i in range(ALLOWED_TOOL_COUNT):
+                if i == ztool:
+                    continue
+                params += f" T{i}={tools[i]}"
 
             gcmd.respond_raw(f"// action:prompt_begin {self._t('prompt_material')}")
             gcmd.respond_raw(f"// action:prompt_text {fname}")
