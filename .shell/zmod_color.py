@@ -20,6 +20,7 @@ TRANSLATIONS = {
         'error_color_or_type': "Укажите HEX или TYPE",
         'error_leveling': "Неверный LEVELING: {}. Допустимо: 0 или 1",
         'error_napr': "Недопустимое направление (0-1)",
+        'error_native_screen_tool_count': "T4 и выше не поддерживаются на родном экране, найдено T{}",
         'error_no_filename': "Не указано имя файла (FILENAME).",
         'error_slot': "Неверный SLOT. Допустимые: 1-4",
         'error_tool': "Неверный T{}: {}. Допустимо: 1-4",
@@ -58,6 +59,7 @@ TRANSLATIONS = {
         'error_color_or_type': "Specify HEX or TYPE",
         'error_leveling': "Invalid LEVELING: {}. Valid: 0 or 1",
         'error_napr': "Invalid direction (0-1)",
+        'error_native_screen_tool_count': "T4 or higher not supported on native screen, found T{}",
         'error_no_filename': "Missing FILENAME parameter",
         'error_slot': "Invalid SLOT. Valid: 1-4",
         'error_tool': "Invalid T{}: {}. Valid: 1-4",
@@ -96,6 +98,7 @@ TRANSLATIONS = {
         'error_color_or_type': "Geben Sie HEX oder TYP an",
         'error_leveling': "Ungültiges LEVELING: {}. Erlaubt: 0 oder 1",
         'error_napr': "Ungültige Richtung (0-1)",
+        'error_native_screen_tool_count': "T4 oder höher wird vom Original-Display nicht unterstützt, T{} gefunden",
         'error_no_filename': "Dateiname nicht angegeben (FILENAME)",
         'error_slot': "Ungültiger SLOT. Erlaubt: 1-4",
         'error_tool': "Ungültiges T{}: {}. Erlaubt: 1-4",
@@ -134,6 +137,7 @@ TRANSLATIONS = {
         'error_color_or_type': "Indiquez HEX ou TYPE",
         'error_leveling': "LEVELING invalide: {}. Autorisé: 0 ou 1",
         'error_napr': "Direction invalide (0-1)",
+        'error_native_screen_tool_count': "T4 ou supérieur non supporté sur l'écran d'origine, T{} trouvé",
         'error_no_filename': "Nom de fichier non spécifié (FILENAME)",
         'error_slot': "Emplacement SLOT invalide. Autorisé: 1-4",
         'error_tool': "Outil T{} invalide: {}. Autorisé: 1-4",
@@ -172,6 +176,7 @@ TRANSLATIONS = {
         'error_color_or_type': "Specificare HEX o TYPE",
         'error_leveling': "LEVELING non valido: {}. Consentiti: 0 o 1",
         'error_napr': "Direzione non valida (0-1)",
+        'error_native_screen_tool_count': "T4 o superiore non supportato sullo schermo nativo, trovato T{}",
         'error_no_filename': "Nome file non specificato (FILENAME)",
         'error_slot': "Slot non valido. Consentiti: 1-4",
         'error_tool': "Strumento T{} non valido: {}. Consentiti: 1-4",
@@ -210,6 +215,7 @@ TRANSLATIONS = {
         'error_color_or_type': "Especifique HEX o TYPE",
         'error_leveling': "LEVELING inválido: {}. Permitido: 0 o 1",
         'error_napr': "Dirección inválida (0-1)",
+        'error_native_screen_tool_count': "T4 o superior no soportado en pantalla nativa, se encontró T{}",
         'error_no_filename': "Nombre de archivo no especificado (FILENAME)",
         'error_slot': "Ranura SLOT inválida. Permitidas: 1-4",
         'error_tool': "Herramienta T{} inválida: {}. Permitidas: 1-4",
@@ -248,6 +254,7 @@ TRANSLATIONS = {
         'error_color_or_type': "请指定HEX或TYPE",
         'error_leveling': "无效的LEVELING: {}。允许值：0或1",
         'error_napr': "方向无效（0-1）",
+        'error_native_screen_tool_count': "原生屏幕不支持 T4 或更高版本，发现 T{}",
         'error_no_filename': "未指定文件名（FILENAME）",
         'error_slot': "无效的SLOT。允许值：1-4",
         'error_tool': "无效的T{}: {}。允许值：1-4",
@@ -286,6 +293,7 @@ TRANSLATIONS = {
         'error_color_or_type': "HEXまたはTYPEを指定してください",
         'error_leveling': "無効なLEVELING: {}。0または1のみ有効",
         'error_napr': "方向が無効です（0-1）",
+        'error_native_screen_tool_count': "標準画面は T4 以降に対応していません。T{} が見つかりました",
         'error_no_filename': "ファイル名が指定されていません（FILENAME）",
         'error_slot': "無効なSLOTです。1-4が有効",
         'error_tool': "無効なT{}: {}。1-4が有効",
@@ -324,6 +332,7 @@ TRANSLATIONS = {
         'error_color_or_type': "HEX 또는 TYPE을 지정하세요",
         'error_leveling': "잘못된 LEVELING: {}. 0 또는 1만 허용",
         'error_napr': "방향이 잘못되었습니다 (0-1)",
+        'error_native_screen_tool_count': "기본 화면에서는 T4 이상이 지원되지 않습니다. T{} 발견됨",
         'error_no_filename': "파일 이름이 지정되지 않음 (FILENAME)",
         'error_slot': "잘못된 SLOT. 1-4만 허용",
         'error_tool': "잘못된 T{}: {}. 1-4만 허용",
@@ -362,6 +371,7 @@ TRANSLATIONS = {
         'error_color_or_type': "Especifique HEX ou TIPO",
         'error_leveling': "NIVELAMENTO inválido: {}. Válido: 0 ou 1",
         'error_napr': "Direção inválida (0-1)",
+        'error_native_screen_tool_count': "T4 ou superior não suportado no ecrã nativo, encontrado T{}",
         'error_no_filename': "Parâmetro NOME_DO_ARQUIVO faltando",
         'error_slot': "SLOT inválido. Válido: 1-4",
         'error_tool': "T{} inválido: {}. Válido: 1-4",
@@ -400,6 +410,7 @@ TRANSLATIONS = {
         "error_color_or_type": "Zadejte HEX nebo TYP",
         "error_leveling": "Neplatný LEVELING: {}. Povoleno: 0 nebo 1",
         "error_napr": "Nepovolený směr (0–1)",
+        'error_native_screen_tool_count': "Nativní obrazovka nepodporuje T4 nebo vyšší, nalezeno T{}",
         "error_no_filename": "Není zadán název souboru (FILENAME).",
         "error_slot": "Neplatný SLOT. Povolené: 1–4",
         "error_tool": "Neplatný T{}: {}. Povoleno: 1–4",
@@ -438,6 +449,7 @@ TRANSLATIONS = {
         'error_color_or_type': "HEX veya TÜR belirtin",
         'error_leveling': "Geçersiz SEVİYELEME: {}. Geçerli: 0 veya 1",
         'error_napr': "Geçersiz yön (0-1)",
+        'error_native_screen_tool_count': "Yerel ekranda T4 veya üstü desteklenmiyor, T{} bulundu",
         'error_no_filename': "DOSYA_ADI parametresi eksik",
         'error_slot': "Geçersiz YUVAL. Geçerli: 1-4",
         'error_tool': "Geçersiz T{}: {}. Geçerli: 1-4",
@@ -767,6 +779,9 @@ class zmod_color:
             gcmd.respond_raw(self._t('no_response', json.dumps(response_data)))
             
     def get_allowed_tool_count(self, gcmd):
+        if self.display:
+            return 4
+      
         save_variables = self.printer.lookup_object('save_variables', None)
         save_variables = {} if save_variables == None else save_variables.allVariables
         
@@ -986,6 +1001,8 @@ class zmod_color:
         
         if gcmd.get_int('ALLOWED_TOOL_COUNT', 0) == 0:
             self.file_colors = self.get_used_colors(gcmd)
+            if self.display and any(file_color[0] > 3 for file_color in self.file_colors):
+                raise gcmd.error(self._t('error_native_screen_tool_count', len(self.file_colors)))
             if save_variables.get('auto_assign_colors', 0) != 0:
                 auto_assign = 1
                 
@@ -1208,6 +1225,8 @@ class zmod_color:
 
             self.gcode.run_script_from_command(f"SAVE_VARIABLE VARIABLE=print_leveling VALUE={leveling}")
             if self.display:
+                if any(file_color[0] > 3 for file_color in self.file_colors):
+                    raise gcmd.error(self._t('error_native_screen_tool_count', len(self.file_colors))) # We should never actually get here with >4 colors. But this check is here just in case.
                 data = {
                     "fileName": fname,
                     "levelingBeforePrint": bool(leveling),
