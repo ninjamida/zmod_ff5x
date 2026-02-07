@@ -862,7 +862,7 @@ class zmod_color:
 
         return sorted([(tool_index, filament_colors[tool_index], filament_types[tool_index]) for tool_index in result_colors])
       
-    def get_auto_tool_assignments(self, gcmd, orig_tools, raw_slots):   
+    def get_auto_tool_assignments(self, gcmd, orig_tools, raw_slots, output_text, one_based_indexes):   
         if len(raw_slots) == 0:
             return AUTO_ASSIGN_MATERIAL_FAILURE | AUTO_ASSIGN_COLOR_FAILURE
         
@@ -879,7 +879,7 @@ class zmod_color:
                 slot['green'] = -1
                 slot['blue'] = -1
                 result_flags |= AUTO_ASSIGN_INVALID_SLOT_DATA
-                gcmd.respond_raw(f"// Error loading color for slot {slot['ID']}")
+                output_text += [f"// Auto-assignment: *WARNING* Error loading color for slot {slot['ID']}"]
       
         tools = [0] * len(orig_tools)
         file_colors = self.file_colors
@@ -887,6 +887,7 @@ class zmod_color:
         for iTool in range(len(tools)):
             for file_color in file_colors:
                 if iTool == file_color[0]:  # not a failure if we don't find any match between i and file_color[0] - it is expected on unused tool indexes
+                    tool_name = f"tool T{iTool}" if not one_based_indexes else f"color {iTool + 1}"
                     candidates = []
                     if file_color[2] != '':
                         for slot in slots:
@@ -896,7 +897,6 @@ class zmod_color:
                         result_flags |= AUTO_ASSIGN_MATERIAL_FAILURE
                         this_material_failure = True
                         candidates = slots
-                        gcmd.respond_raw(f"// No material match for tool T{iTool}")
                     else:
                         result_flags |= AUTO_ASSIGN_ANY_SUCCESS
                         this_material_failure = False
@@ -905,7 +905,9 @@ class zmod_color:
                         result_flags |= AUTO_ASSIGN_COLOR_FAILURE
                         if not this_material_failure:
                             tools[iTool] = int(candidates[0]['ID'])
-                        gcmd.respond_raw(f"// No color match for tool T{iTool}")
+                            output_text += [f"// Auto-assignment: No color match for {tool_name}"]
+                        else:
+                            output_text += [f"// Auto-assignment: *CRITICAL* No color or material match for {tool_name}"]
                         continue
                         
                     closest_slot = None
@@ -932,16 +934,22 @@ class zmod_color:
                         result_flags |= AUTO_ASSIGN_COLOR_FAILURE
                         if not this_material_failure:
                             tools[iTool] = int(candidates[0]['ID'])
-                        gcmd.respond_raw(f"// No color match for tool T{iTool}")
+                            output_text += [f"// Auto-assignment: No color match for {tool_name}"]
+                        else:
+                            output_text += [f"// Auto-assignment: *CRITICAL* No color or material match for {tool_name}"]
                         continue
                       
                     result_flags |= AUTO_ASSIGN_ANY_SUCCESS  
                       
                     if closest_slot_difference >= AUTO_ASSIGN_WEAK_COLOR_CUTOFF:
                         result_flags |= AUTO_ASSIGN_COLOR_WEAK
-                        gcmd.respond_raw(f"// T{iTool} matched to slot {closest_slot['ID']} **WEAK MATCH**")  
+                      
+                    if this_material_failure:
+                        output_text += [f"// Auto-assignment: *CRITICAL* No material match for {tool_name}"]
+                    elif closest_slot_difference >= AUTO_ASSIGN_WEAK_COLOR_CUTOFF:
+                        output_text += [f"// Auto-assignment: {tool_name} weakly matched to slot {closest_slot['ID']}"]  
                     else:
-                        gcmd.respond_raw(f"// T{iTool} matched to slot {closest_slot['ID']}")  
+                        output_text += [f"// Auto-assignment: {tool_name} matched to slot {closest_slot['ID']}"]  
                         
                     tools[iTool] = int(closest_slot['ID'])
                     
@@ -989,6 +997,8 @@ class zmod_color:
             if leveling
             else self._t('prompt_leveling_off')
         )
+        
+        auto_selection_output_text = []
 
         if self.display:
             status_code, response_data = self.zsend_post_request("/detail")
@@ -1009,7 +1019,7 @@ class zmod_color:
                       tools += [gcmd.get_int(f"T{i}", int(default_values[i]))]
                 else:
                     tools = [1] * allowed_tool_count
-                    auto_result = self.get_auto_tool_assignments(gcmd, tools, result)
+                    auto_result = self.get_auto_tool_assignments(gcmd, tools, result, auto_selection_output_text, one_based_indexes)
 
                 for i, tool in enumerate(tools):
                     if tool < 1 or tool > 4:
@@ -1088,6 +1098,9 @@ class zmod_color:
                 )
                 gcmd.respond_raw(f"// action:prompt_footer_button {self._t('cancel')}|RESPOND TYPE=command MSG=action:prompt_end")
                 gcmd.respond_raw("// action:prompt_show")
+                
+                for line in auto_selection_output_text:
+                    gcmd.respond_raw(line)
             elif silent == 1:
                 gcmd.respond_raw(f"// {fname}")
                 gcmd.respond_raw(f"// {leveling_text}")
