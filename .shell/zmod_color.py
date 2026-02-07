@@ -1002,8 +1002,12 @@ class zmod_color:
             self.file_colors = self.get_used_colors(gcmd)
             if self.display and any(file_color[0] > 3 for file_color in self.file_colors):
                 raise gcmd.error(self._t('error_native_screen_tool_count', len(self.file_colors)))
-            if save_variables.get('auto_assign_colors', 0) != 0:
-                auto_assign = 1
+            if 'auto_assign_colors' in save_variables:
+                auto_assign_setting = save_variables['auto_assign_colors']
+                if (auto_assign_setting & 1) != 0 and silent == 0:
+                    auto_assign = 1
+                if (auto_assign_setting & 2) != 0 and silent != 0:
+                    auto_assign = 1
                 
         file_colors = self.file_colors
         color_indexes = [file_color[0] for file_color in file_colors]
