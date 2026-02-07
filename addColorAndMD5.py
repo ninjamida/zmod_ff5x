@@ -1,7 +1,11 @@
 # (C) Namida Verasche aka ninjamida
-# Derived (very loosely) from addMD5.py
+# MD5 aspects copied (with changes) from addMD5.py
 
 import sys
+import hashlib
+import os
+
+# Color info
 
 if len(sys.argv) < 2:
     sys.exit()
@@ -10,6 +14,9 @@ file_path = sys.argv[1]
 
 with open(file_path, 'r') as f:
     content = f.readlines()
+
+if content[0].strip().casefold().startswith('; md5'):
+    content.pop(0)
 
 result_colors = []
 highest_result_color = -1
@@ -84,3 +91,21 @@ if found_existing_line:
 
 with open(file_path, 'w') as f:
     f.writelines(content)
+
+# MD5
+
+with open(file_path, 'rb') as f:
+    content = f.read()
+
+if content.startswith(b'; MD5:'):
+    end_line_pos = content.index('\n')
+    content = content[end_line_pos+1:]
+
+md5_hash = hashlib.md5(content).hexdigest()
+
+md5_line = b'; MD5:' + md5_hash.encode('ascii') + b'\r\n'
+
+new_content = md5_line + content
+
+with open(file_path, 'wb') as f:
+    f.write(new_content)
