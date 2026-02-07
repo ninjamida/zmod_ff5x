@@ -978,8 +978,7 @@ class zmod_color:
                                 result_flags |= AUTO_ASSIGN_DUPLICATE
                                 break
         return result_flags
-                            
-                    
+    
 
     def cmd_SET_ZCOLOR(self, gcmd):
         save_variables = self.printer.lookup_object('save_variables', None)
@@ -1130,15 +1129,22 @@ class zmod_color:
                     for slot_info in result:
                         if int(slot_info['ID']) != tool_val:
                             continue
+                        if tool_idx not in [file_color[0] for file_color in self.file_colors]:
+                            continue
                         gcmd.respond_raw(
                             f"T{tool_idx} -> "
                             f"{slot_info['ID']}: "
                             f"{slot_info['Material']}/{slot_info['Color']}"
                         )
-                gcmd2 = self.gcode.create_gcode_command("PRINT_ZCOLOR", "PRINT_ZCOLOR", {
-                        'LEVELING': leveling, 'FILENAME': fname,
-                        'T0': tools[0], 'T1': tools[1], 'T2': tools[2], 'T3': tools[3], 'ALLOWED_TOOL_COUNT': 4
-                        })
+                
+                new_gcmd_params = {
+                        'LEVELING': leveling, 'FILENAME': fname, 'ALLOWED_TOOL_COUNT': allowed_tool_count
+                        }
+                
+                for i in range(len(tools)):
+                    new_gcmd_params[f"T{i}"] = tools[i]
+                
+                gcmd2 = self.gcode.create_gcode_command("PRINT_ZCOLOR", "PRINT_ZCOLOR", new_gcmd_params)
                 self.cmd_PRINT_ZCOLOR(gcmd2)
             elif silent == 2:
                 self.gcode.run_script_from_command(f"SAVE_VARIABLE VARIABLE=print_leveling VALUE={leveling}")
