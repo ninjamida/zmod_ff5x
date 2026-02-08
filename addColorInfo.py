@@ -22,13 +22,17 @@ filament_type_line = ''
 color_data_line = ''
 
 header_end_line = -1
+remove_existing_line = -1
 found_header_end_line = False
+found_existing_line = False
 old_color_data_line = -1
 
 for line_raw in content:
     line = line_raw.strip().casefold()
     if not found_header_end_line:
         header_end_line += 1
+    if not found_existing_line:
+        remove_existing_line += 1
     if len(line) == 0:
         continue
     if line[0] == 't':
@@ -40,10 +44,12 @@ for line_raw in content:
         except:
             pass
     if line[0] == ';':
-        if line.startswith('; filament_colour'):
+        if line.startswith('; filament_colour ='):
             _, _, filament_color_line = line.partition('=')
-        if line.startswith('; filament_type'):
+        if line.startswith('; filament_type ='):
             _, _, filament_type_line = line.partition('=')
+        if line.startswith('; zmod_color_data ='):
+            found_existing_line = True
         if line.startswith('; header_block_end'):
             found_header_end_line = True
 
@@ -71,8 +77,13 @@ filament_type_string = ','.join(filament_types)
 
 if not found_header_end_line:
     header_end_line = 0
-
+    
 content.insert(header_end_line, f"; zmod_color_data = {tool_indexes_string}|{filament_color_string}|{filament_type_string}\r\n")
+
+if found_existing_line:
+    if remove_existing_line > header_end_line: # Should never happen but just in case
+        remove_existing_line += 1
+    content.pop(remove_existing_line)
 
 with open(file_path, 'w') as f:
     f.writelines(content)
