@@ -17,6 +17,7 @@ TRANSLATIONS = {
         'change_type': "Сменить тип",
         'config_error': "!! Ошибка смены цвета / типа\n{}",
         'config_success': "Настройки сохранены",
+        'error_auto_assign_result': "Ошибка автоназначения катушек, код возврата {}",
         'error_color_or_type': "Укажите HEX или TYPE",
         'error_leveling': "Неверный LEVELING: {}. Допустимо: 0 или 1",
         'error_napr': "Недопустимое направление (0-1)",
@@ -56,6 +57,7 @@ TRANSLATIONS = {
         'change_type': "Change type",
         'config_error': "!! Error changing color/type\n{}",
         'config_success': "Settings saved",
+        'error_auto_assign_result': "Spool auto-assignment failed, return code {}",
         'error_color_or_type': "Specify HEX or TYPE",
         'error_leveling': "Invalid LEVELING: {}. Valid: 0 or 1",
         'error_napr': "Invalid direction (0-1)",
@@ -95,6 +97,7 @@ TRANSLATIONS = {
         'change_type': "Typ ändern",
         'config_error': "!! Fehler beim Ändern von Farbe/Typ\n{}",
         'config_success': "Einstellungen gespeichert",
+        'error_auto_assign_result': "Spulenzuweisung fehlgeschlagen, Rückgabecode {}",
         'error_color_or_type': "Geben Sie HEX oder TYP an",
         'error_leveling': "Ungültiges LEVELING: {}. Erlaubt: 0 oder 1",
         'error_napr': "Ungültige Richtung (0-1)",
@@ -134,6 +137,7 @@ TRANSLATIONS = {
         'change_type': "Changer le type",
         'config_error': "!! Erreur lors du changement de couleur/type\n{}",
         'config_success': "Paramètres enregistrés",
+        'error_auto_assign_result': "Échec de l'assignation auto des bobines, code {}",
         'error_color_or_type': "Indiquez HEX ou TYPE",
         'error_leveling': "LEVELING invalide: {}. Autorisé: 0 ou 1",
         'error_napr': "Direction invalide (0-1)",
@@ -173,6 +177,7 @@ TRANSLATIONS = {
         'change_type': "Cambia tipo",
         'config_error': "!! Errore durante la modifica di colore/tipo\n{}",
         'config_success': "Impostazioni salvate",
+        'error_auto_assign_result': "Assegnazione auto bobine fallita, codice di ritorno {}",
         'error_color_or_type': "Specificare HEX o TYPE",
         'error_leveling': "LEVELING non valido: {}. Consentiti: 0 o 1",
         'error_napr': "Direzione non valida (0-1)",
@@ -212,6 +217,7 @@ TRANSLATIONS = {
         'change_type': "Cambiar tipo",
         'config_error': "!! Error al cambiar color/tipo\n{}",
         'config_success': "Configuración guardada",
+        'error_auto_assign_result': "Fallo en asignación auto de bobinas, código {}",
         'error_color_or_type': "Especifique HEX o TYPE",
         'error_leveling': "LEVELING inválido: {}. Permitido: 0 o 1",
         'error_napr': "Dirección inválida (0-1)",
@@ -251,6 +257,7 @@ TRANSLATIONS = {
         'change_type': "更改类型",
         'config_error': "!! 颜色/类型更改错误\n{}",
         'config_success': "设置已保存",
+        'error_auto_assign_result': "料盘自动分配失败，返回代码 {}",
         'error_color_or_type': "请指定HEX或TYPE",
         'error_leveling': "无效的LEVELING: {}。允许值：0或1",
         'error_napr': "方向无效（0-1）",
@@ -290,6 +297,7 @@ TRANSLATIONS = {
         'change_type': "タイプを変更",
         'config_error': "!! 色/タイプ変更エラー\n{}",
         'config_success': "設定が保存されました",
+        'error_auto_assign_result': "スプールの自動割当に失敗しました。リターンコード {}",
         'error_color_or_type': "HEXまたはTYPEを指定してください",
         'error_leveling': "無効なLEVELING: {}。0または1のみ有効",
         'error_napr': "方向が無効です（0-1）",
@@ -329,6 +337,7 @@ TRANSLATIONS = {
         'change_type': "유형 변경",
         'config_error': "!! 색상/유형 변경 오류\n{}",
         'config_success': "설정이 저장되었습니다",
+        'error_auto_assign_result': "스풀 자동 할당 실패, 반환 코드 {}",
         'error_color_or_type': "HEX 또는 TYPE을 지정하세요",
         'error_leveling': "잘못된 LEVELING: {}. 0 또는 1만 허용",
         'error_napr': "방향이 잘못되었습니다 (0-1)",
@@ -368,6 +377,7 @@ TRANSLATIONS = {
         'change_type': "Alterar tipo",
         'config_error': "!! Erro ao alterar cor/tipo\n{}",
         'config_success': "Configurações salvas",
+        'error_auto_assign_result': "Falha na atribuição auto de carretel, código de retorno {}",
         'error_color_or_type': "Especifique HEX ou TIPO",
         'error_leveling': "NIVELAMENTO inválido: {}. Válido: 0 ou 1",
         'error_napr': "Direção inválida (0-1)",
@@ -407,6 +417,7 @@ TRANSLATIONS = {
         "change_type": "Změnit typ",
         "config_error": "!! Chyba při změně barvy / typu\n{}",
         "config_success": "Nastavení uložena",
+        'error_auto_assign_result': "Automatické přiřazení cívky selhalo, návratový kód {}",
         "error_color_or_type": "Zadejte HEX nebo TYP",
         "error_leveling": "Neplatný LEVELING: {}. Povoleno: 0 nebo 1",
         "error_napr": "Nepovolený směr (0–1)",
@@ -446,6 +457,7 @@ TRANSLATIONS = {
         'change_type': "Türü değiştir",
         'config_error': "!! Renk/tür değiştirme hatası\n{}",
         'config_success': "Ayarlar kaydedildi",
+        'error_auto_assign_result': "Makara otomatik atama hatası, dönüş kodu {}",
         'error_color_or_type': "HEX veya TÜR belirtin",
         'error_leveling': "Geçersiz SEVİYELEME: {}. Geçerli: 0 veya 1",
         'error_napr': "Geçersiz yön (0-1)",
@@ -751,7 +763,8 @@ class zmod_color:
                 for slot in result:
                     if self.get_current_channel() == int(slot['ID']):
                         prompt_text = f"Extruder: {slot['ID']}: {slot['Material']}/{slot['Color']}"
-                        button_text = f"// action:prompt_button {self._t('remove_from_extruder')}|_IFS_REMOVE_CURRENT_PRUTOK|primary|{slot['HEX']}"
+                        if silent == 0:
+                            button_text = f"// action:prompt_button {self._t('remove_from_extruder')}|_IFS_REMOVE_CURRENT_PRUTOK|primary|{slot['HEX']}"
                         break
 
             if silent == 0:
@@ -995,19 +1008,16 @@ class zmod_color:
         leveling = gcmd.get_int('LEVELING', 0)
         if leveling not in (0, 1):
             raise gcmd.error(self._t('error_leveling', leveling))
-            
-        auto_assign = gcmd.get_int('AUTO_ASSIGN', 0)
         
         if gcmd.get_int('ALLOWED_TOOL_COUNT', 0) == 0:
             self.file_colors = self.get_used_colors(gcmd)
             if self.display and any(file_color[0] > 3 for file_color in self.file_colors):
                 raise gcmd.error(self._t('error_native_screen_tool_count', len(self.file_colors)))
-            if 'auto_assign_colors' in save_variables:
-                auto_assign_setting = save_variables['auto_assign_colors']
-                if (auto_assign_setting & 1) != 0 and silent == 0:
-                    auto_assign = 1
-                if (auto_assign_setting & 2) != 0 and silent != 0:
-                    auto_assign = 1
+            auto_assign_setting = save_variables.get('auto_assign_colors', 0)
+        else:
+            auto_assign_setting = 0
+            
+        auto_assign = gcmd.get_int('AUTO_ASSIGN', auto_assign_setting)
                 
         file_colors = self.file_colors
         color_indexes = [file_color[0] for file_color in file_colors]
@@ -1122,6 +1132,13 @@ class zmod_color:
                 for line in auto_selection_output_text:
                     gcmd.respond_raw(line)
             elif silent == 1:
+                if auto_assign > 1:
+                    # Success bit flag is ignored
+                    # The rest is AND'd with the auto assign result, if this is non-zero, print is aborted
+                    pass_check = ((auto_assign & ~AUTO_ASSIGN_ANY_SUCCESS) & (auto_result & ~AUTO_ASSIGN_ANY_SUCCESS))
+                    if pass_check != 0:
+                        raise gcmd.error(self._t('error_auto_assign_result', pass_check))
+              
                 gcmd.respond_raw(f"// {fname}")
                 gcmd.respond_raw(f"// {leveling_text}")
                 gcmd.respond_raw("// IFS ON // SAVE_ZMOD_DATA SILENT=1")
