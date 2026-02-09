@@ -89,17 +89,9 @@ if found_existing_line:
         remove_existing_line += 1
     content.pop(remove_existing_line)
 
-with open(file_path, 'w') as f:
-    f.writelines(content)
-
 # MD5
 
-with open(file_path, 'rb') as f:
-    content = f.read()
-
-if content.startswith(b'; MD5:'):
-    end_line_pos = content.index('\n')
-    content = content[end_line_pos+1:]
+content = "".join(content).encode('utf-8')
 
 md5_hash = hashlib.md5(content).hexdigest()
 
