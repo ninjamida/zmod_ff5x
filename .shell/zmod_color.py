@@ -1137,6 +1137,8 @@ class zmod_color:
                     # The rest is AND'd with the auto assign result, if this is non-zero, print is aborted
                     pass_check = ((auto_assign & ~AUTO_ASSIGN_ANY_SUCCESS) & (auto_result & ~AUTO_ASSIGN_ANY_SUCCESS))
                     if pass_check != 0:
+                        for line in auto_selection_output_text:
+                            gcmd.respond_raw(line)
                         raise gcmd.error(self._t('error_auto_assign_result', pass_check))
               
                 gcmd.respond_raw(f"// {fname}")
