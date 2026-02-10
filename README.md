@@ -1,7 +1,5 @@
-This repository is for storing / sharing my own improvements only.
+**Repo Closed**
 
-If you are looking for the actual zMod repo: https://github.com/ghzserg/zmod
+Official zmod repo: https://github.com/ghzserg/zmod
 
-Branch 1.6 should be unmodified from original repo
-Branch 1.6-custom is my "master" branch
-Other branches are for WIP features
+My actual repo: https://github.com/ninjamida/zmod_z_ad5x
