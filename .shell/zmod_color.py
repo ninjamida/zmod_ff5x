@@ -10,6 +10,10 @@ FILE_CONFIG='/usr/data/config/mod_data/file.json'
 
 TRANSLATIONS = {
     'ru': {
+        'auto_assign_no_color_match': "Автоназначение: Не удалось подобрать цвет для {}",
+        'auto_assign_no_material_match': "Автоназначение: Не удалось подобрать материал для {}",
+        'auto_assign_success': "Автоназначение: {} назначен слоту {}",
+        'auto_assign_weak_match': "Автоназначение: {} назначен слоту {}, слабое совпадение",
         'auto_select_colors': "Автовыбор цветов",
         'cancel': "Отмена",
         'change_color': "Сменить цвет",
@@ -27,9 +31,11 @@ TRANSLATIONS = {
         'error_tool': "Неверный T{}: {}. Допустимо: 1-4",
         'error_type': "Неверный тип материала: {}. Допустимо: {}",
         'file_tool': "Файл",
+        'hide_color_selection': "Скрыть выбор цвета, печатать без IFS",
         'load_error': "!! Ошибка загрузки / выгружки\n{}",
         'load_success': "Загрузка началась",
         'load': "Загрузить",
+        'no_prepared_data_scanning': "Подготовленные данные о цвете не найдены. Сканирование файла",
         'no_response': "!! Нет ответа от принтера. Настройте принтер: \"Настройки\" -> \"WiFi\" -> \"Сетевой режим\" -> \"Только локальные сети\"\n{}",
         'printing_error': "!! Ошибка печати файла\n{}",
         'prompt_choose': "Выберите катушку для изменения",
@@ -37,6 +43,7 @@ TRANSLATIONS = {
         'prompt_leveling_on': "Снять карту стола",
         'prompt_map_color': "Сопоставьте цвет из файла с катушкой",
         'prompt_material': "Загруженный материал",
+        'remove_from_extruder': "Извлечь из экструдера",
         'reset_colors': "Сбросить цвета",
         'select_action': "Выберите действие",
         'select_color': "Выберите цвет",
@@ -46,10 +53,13 @@ TRANSLATIONS = {
         'spool': "Катушка",
         'unload_error': "Ошибка выгрузки: {}",
         'unload_success': "Выгрузка начата",
-        'unload': "Выгрузить",
-        'remove_from_extruder': "Извлечь из экструдера"
+        'unload': "Выгрузить"
     },
     'en': {
+        'auto_assign_no_color_match': "Auto-assignment: Couldn't match color for {}",
+        'auto_assign_no_material_match': "Auto-assignment: Couldn't match material for {}",
+        'auto_assign_success': "Auto-assignment: {} matched to slot {}",
+        'auto_assign_weak_match': "Auto-assignment: {} matched to slot {}, weak match",
         'auto_select_colors': "Auto select colors",
         'cancel': "Cancel",
         'change_color': "Change color",
@@ -67,9 +77,11 @@ TRANSLATIONS = {
         'error_tool': "Invalid T{}: {}. Valid: 1-4",
         'error_type': "Invalid material type: {}. Valid: {}",
         'file_tool': "In file",
+        'hide_color_selection': "Hide color selection, print without IFS",
         'load_error': "!! Load/unload error\n{}",
         'load_success': "Loading started",
         'load': "Load",
+        'no_prepared_data_scanning': "Pre-prepared color data not found. Scanning file",
         'no_response': "!! No response from printer. Configure via: \"Settings\" -> \"WiFi\" -> \"Network Mode\" -> \"Local Only\"\n{}",
         'printing_error': "!! File printing error\n{}",
         'prompt_choose': "Select a spool to modify",
@@ -77,6 +89,7 @@ TRANSLATIONS = {
         'prompt_leveling_on': "Leveling On",
         'prompt_map_color': "Map file color to spool",
         'prompt_material': "Select print materials",
+        'remove_from_extruder': "Remove from extruder",
         'reset_colors': "Reset colors",
         'select_action': "Select action",
         'select_color': "Select color",
@@ -86,10 +99,13 @@ TRANSLATIONS = {
         'spool': "in spool",
         'unload_error': "Unloading error: {}",
         'unload_success': "Unloading started",
-        'unload': "Unload",
-        'remove_from_extruder': "Remove from extruder"
+        'unload': "Unload"
     },
     'de': {
+        'auto_assign_no_color_match': "Autozuweisung: Farbe für {} nicht gefunden",
+        'auto_assign_no_material_match': "Autozuweisung: Material für {} nicht gefunden",
+        'auto_assign_success': "Autozuweisung: {} dem Slot {} zugewiesen",
+        'auto_assign_weak_match': "Autozuweisung: {} dem Slot {} zugewiesen, schwache Übereinstimmung",
         'auto_select_colors': "Farben auto-wählen",
         'cancel': "Abbrechen",
         'change_color': "Farbe ändern",
@@ -107,9 +123,11 @@ TRANSLATIONS = {
         'error_tool': "Ungültiges T{}: {}. Erlaubt: 1-4",
         'error_type': "Ungültiger Materialtyp: {}. Erlaubt: {}",
         'file_tool': "In Datei",
+        'hide_color_selection': "Farbauswahl ausblenden, ohne IFS drucken",
         'load_error': "!! Fehler beim Laden/Entladen\n{}",
         'load_success': "Laden gestartet",
         'load': "Laden",
+        'no_prepared_data_scanning': "Vorbereitete Farbdaten nicht gefunden. Datei wird gescannt",
         'no_response': "!! Keine Antwort vom Drucker. Konfigurieren Sie: \"Einstellungen\" -> \"WLAN\" -> \"Netzwerkmodus\" -> \"Nur lokal\"\n{}",
         'printing_error': "!! Fehler beim Drucken der Datei\n{}",
         'prompt_choose': "Wählen Sie eine Spule zum Ändern",
@@ -117,6 +135,7 @@ TRANSLATIONS = {
         'prompt_leveling_on': "Drucken mit Bett-Nivellierung",
         'prompt_map_color': "Farbe aus Datei einer Spule zuordnen",
         'prompt_material': "Geladenes Material",
+        'remove_from_extruder': "Vom Extruder entfernen",
         'reset_colors': "Farben zurücksetzen",
         'select_action': "Aktion auswählen",
         'select_color': "Farbe auswählen",
@@ -126,10 +145,13 @@ TRANSLATIONS = {
         'spool': "in Spule",
         'unload_error': "Fehler beim Entladen: {}",
         'unload_success': "Entladen gestartet",
-        'unload': "Entladen",
-        'remove_from_extruder': "Vom Extruder entfernen"
+        'unload': "Entladen"
     },
     'fr': {
+        'auto_assign_no_color_match': "Assignation auto : Impossible de faire correspondre la couleur pour {}",
+        'auto_assign_no_material_match': "Assignation auto : Impossible de faire correspondre le matériau pour {}",
+        'auto_assign_success': "Assignation auto : {} associé au slot {}",
+        'auto_assign_weak_match': "Assignation auto : {} associé au slot {}, correspondance faible",
         'auto_select_colors': "Sélection auto couleurs",
         'cancel': "Annuler",
         'change_color': "Changer la couleur",
@@ -147,9 +169,11 @@ TRANSLATIONS = {
         'error_tool': "Outil T{} invalide: {}. Autorisé: 1-4",
         'error_type': "Type de matériau invalide: {}. Autorisé: {}",
         'file_tool': "Dans le fichier",
+        'hide_color_selection': "Masquer la sélection des couleurs, imprimer sans IFS",
         'load_error': "!! Erreur de chargement/déchargement\n{}",
         'load_success': "Chargement commencé",
         'load': "Charger",
+        'no_prepared_data_scanning': "Données de couleur préparées non trouvées. Scan du fichier",
         'no_response': "!! Aucune réponse de l'imprimante. Configurez via : \"Paramètres\" -> \"WiFi\" -> \"Mode réseau\" -> \"Réseau local uniquement\"\n{}",
         'printing_error': "!! Erreur d'impression du fichier\n{}",
         'prompt_choose': "Sélectionnez une bobine à modifier",
@@ -157,6 +181,7 @@ TRANSLATIONS = {
         'prompt_leveling_on': "Imprimer avec nivellement du lit",
         'prompt_map_color': "Associer la couleur du fichier à une bobine",
         'prompt_material': "Matériau chargé",
+        'remove_from_extruder': "Retirer de l'extrudeuse",
         'reset_colors': "Réinitialiser les couleurs",
         'select_action': "Sélectionner une action",
         'select_color': "Sélectionner une couleur",
@@ -166,10 +191,13 @@ TRANSLATIONS = {
         'spool': "dans la bobine",
         'unload_error': "Erreur de déchargement : {}",
         'unload_success': "Déchargement commencé",
-        'unload': "Décharger",
-        'remove_from_extruder': "Retirer de l'extrudeuse"
+        'unload': "Décharger"
     },
     'it': {
+        'auto_assign_no_color_match': "Assegnazione auto: Impossibile abbinare il colore per {}",
+        'auto_assign_no_material_match': "Assegnazione auto: Impossibile abbinare il materiale per {}",
+        'auto_assign_success': "Assegnazione auto: {} abbinato allo slot {}",
+        'auto_assign_weak_match': "Assegnazione auto: {} abbinato allo slot {}, corrispondenza debole",
         'auto_select_colors': "Selezione auto colori",
         'cancel': "Annulla",
         'change_color': "Cambia colore",
@@ -187,9 +215,11 @@ TRANSLATIONS = {
         'error_tool': "Strumento T{} non valido: {}. Consentiti: 1-4",
         'error_type': "Tipo di materiale non valido: {}. Consentiti: {}",
         'file_tool': "Nel file",
+        'hide_color_selection': "Nascondi selezione colore, stampa senza IFS",
         'load_error': "!! Errore di caricamento/scaricamento\n{}",
         'load_success': "Caricamento avviato",
         'load': "Carica",
+        'no_prepared_data_scanning': "Dati colore preparati non trovati. Scansione del file",
         'no_response': "!! Nessuna risposta dalla stampante. Configura tramite: \"Impostazioni\" -> \"WiFi\" -> \"Modalità rete\" -> \"Solo locale\"\n{}",
         'printing_error': "!! Errore di stampa del file\n{}",
         'prompt_choose': "Seleziona una bobina da modificare",
@@ -197,6 +227,7 @@ TRANSLATIONS = {
         'prompt_leveling_on': "Stampa con livellamento del letto",
         'prompt_map_color': "Associa il colore del file alla bobina",
         'prompt_material': "Materiale caricato",
+        'remove_from_extruder': "Rimuovere dall'estrusore",
         'reset_colors': "Reimposta colori",
         'select_action': "Seleziona azione",
         'select_color': "Seleziona colore",
@@ -206,10 +237,13 @@ TRANSLATIONS = {
         'spool': "nella bobina",
         'unload_error': "Errore di scaricamento: {}",
         'unload_success': "Scaricamento avviato",
-        'unload': "Scarica",
-        'remove_from_extruder': "Rimuovere dall'estrusore"
+        'unload': "Scarica"
     },
     'es': {
+        'auto_assign_no_color_match': "Asignación auto: No se pudo encontrar el color para {}",
+        'auto_assign_no_material_match': "Asignación auto: No se pudo encontrar material para {}",
+        'auto_assign_success': "Asignación auto: {} asignado a ranura {}",
+        'auto_assign_weak_match': "Asignación auto: {} asignado a ranura {}, coincidencia débil",
         'auto_select_colors': "Selección auto colores",
         'cancel': "Cancelar",
         'change_color': "Cambiar color",
@@ -227,9 +261,11 @@ TRANSLATIONS = {
         'error_tool': "Herramienta T{} inválida: {}. Permitidas: 1-4",
         'error_type': "Tipo de material inválido: {}. Permitidos: {}",
         'file_tool': "En el archivo",
+        'hide_color_selection': "Ocultar selección de color, imprimir sin IFS",
         'load_error': "!! Error de carga/descarga\n{}",
         'load_success': "Carga iniciada",
         'load': "Cargar",
+        'no_prepared_data_scanning': "Datos de color preparados no encontrados. Escaneando archivo",
         'no_response': "!! Sin respuesta de la impresora. Configure en: \"Ajustes\" -> \"WiFi\" -> \"Modo de red\" -> \"Solo local\"\n{}",
         'printing_error': "!! Error al imprimir el archivo\n{}",
         'prompt_choose': "Seleccione un carrete para modificar",
@@ -237,6 +273,7 @@ TRANSLATIONS = {
         'prompt_leveling_on': "Imprimir con nivelación de cama",
         'prompt_map_color': "Mapear color del archivo al carrete",
         'prompt_material': "Material cargado",
+        'remove_from_extruder': "Extraer del extrusor",
         'reset_colors': "Restablecer colores",
         'select_action': "Seleccionar acción",
         'select_color': "Seleccionar color",
@@ -246,10 +283,13 @@ TRANSLATIONS = {
         'spool': "en el carrete",
         'unload_error': "Error de descarga: {}",
         'unload_success': "Descarga iniciada",
-        'unload': "Descargar",
-        'remove_from_extruder': "Extraer del extrusor"
+        'unload': "Descargar"
     },
     'zh': {
+        'auto_assign_no_color_match': "自动分配：无法匹配颜色 {}",
+        'auto_assign_no_material_match': "自动分配：无法匹配材料 {}",
+        'auto_assign_success': "自动分配：{} 已匹配至槽位 {}",
+        'auto_assign_weak_match': "自动分配：{} 已匹配至槽位 {}，弱匹配",
         'auto_select_colors': "自动选择颜色",
         'cancel': "取消",
         'change_color': "更改颜色",
@@ -267,9 +307,11 @@ TRANSLATIONS = {
         'error_tool': "无效的T{}: {}。允许值：1-4",
         'error_type': "无效的材料类型: {}。允许值：{}",
         'file_tool': "文件中",
+        'hide_color_selection': "隐藏颜色选择，在没有 IFS 的情况下打印",
         'load_error': "!! 加载/卸载错误\n{}",
         'load_success': "开始加载",
         'load': "加载",
+        'no_prepared_data_scanning': "未找到预设颜色数据。正在扫描文件",
         'no_response': "!! 打印机无响应。请通过以下方式配置：\"设置\" -> \"WiFi\" -> \"网络模式\" -> \"仅本地网络\"\n{}",
         'printing_error': "!! 文件打印错误\n{}",
         'prompt_choose': "选择要修改的线轴",
@@ -277,6 +319,7 @@ TRANSLATIONS = {
         'prompt_leveling_on': "使用调平打印",
         'prompt_map_color': "将文件颜色映射到线轴",
         'prompt_material': "已加载材料",
+        'remove_from_extruder': "从挤出机中取出",
         'reset_colors': "重置颜色",
         'select_action': "选择操作",
         'select_color': "选择颜色",
@@ -286,10 +329,13 @@ TRANSLATIONS = {
         'spool': "在线轴中",
         'unload_error': "卸载错误：{}",
         'unload_success': "开始卸载",
-        'unload': "卸载",
-        'remove_from_extruder': "从挤出机中取出"
+        'unload': "卸载"
     },
     'ja': {
+        'auto_assign_no_color_match': "自動割当：{}の色が一致しません",
+        'auto_assign_no_material_match': "自動割当：{}の材質が一致しません",
+        'auto_assign_success': "自動割当：{}をスロット{}に割り当てました",
+        'auto_assign_weak_match': "自動割当：{}をスロット{}に割り当てました（不完全な一致）",
         'auto_select_colors': "色を自動選択",
         'cancel': "キャンセル",
         'change_color': "色を変更",
@@ -307,9 +353,11 @@ TRANSLATIONS = {
         'error_tool': "無効なT{}: {}。1-4が有効",
         'error_type': "無効な材料タイプ: {}。有効なタイプ：{}",
         'file_tool': "ファイル内",
+        'hide_color_selection': "カラー選択を非表示、IFSなしで印刷",
         'load_error': "!! 読み込み/排出エラー\n{}",
         'load_success': "読み込み開始",
         'load': "読み込む",
+        'no_prepared_data_scanning': "事前準備されたカラーデータが見つかりません。ファイルをスキャン中",
         'no_response': "!! プリンターから応答なし。設定方法：\"設定\" -> \"WiFi\" -> \"ネットワークモード\" -> \"ローカルのみ\"\n{}",
         'printing_error': "!! ファイル印刷エラー\n{}",
         'prompt_choose': "変更するスプールを選択",
@@ -317,6 +365,7 @@ TRANSLATIONS = {
         'prompt_leveling_on': "ベッドレベリングを使用して印刷",
         'prompt_map_color': "ファイルの色をスプールにマッピング",
         'prompt_material': "読み込まれた材料",
+        'remove_from_extruder': "エクストルーダーから取り出す",
         'reset_colors': "色をリセット",
         'select_action': "操作を選択",
         'select_color': "色を選択",
@@ -326,10 +375,13 @@ TRANSLATIONS = {
         'spool': "スプール内",
         'unload_error': "排出エラー：{}",
         'unload_success': "排出を開始",
-        'unload': "排出する",
-        'remove_from_extruder': "エクストルーダーから取り出す"
+        'unload': "排出する"
     },
     'ko': {
+        'auto_assign_no_color_match': "자동 할당: {}에 대한 색상을 찾을 수 없습니다",
+        'auto_assign_no_material_match': "자동 할당: {}에 대한 재질을 찾을 수 없습니다",
+        'auto_assign_success': "자동 할당: {}이 슬롯 {}에 매치됨",
+        'auto_assign_weak_match': "자동 할당: {}이 슬롯 {}에 매치됨, 부분 일치",
         'auto_select_colors': "색상 자동 선택",
         'cancel': "취소",
         'change_color': "색상 변경",
@@ -347,9 +399,11 @@ TRANSLATIONS = {
         'error_tool': "잘못된 T{}: {}. 1-4만 허용",
         'error_type': "잘못된 재료 유형: {}. 허용된 유형: {}",
         'file_tool': "파일 내",
+        'hide_color_selection': "색상 선택 숨기기, IFS 없이 인쇄",
         'load_error': "!! 로드/언로드 오류\n{}",
         'load_success': "로드 시작",
         'load': "로드",
+        'no_prepared_data_scanning': "사전 준비된 색상 데이터를 찾을 수 없습니다. 파일을 스캔하는 중",
         'no_response': "!! 프린터 응답 없음. 설정 방법: \"설정\" -> \"WiFi\" -> \"네트워크 모드\" -> \"로컬 전용\"\n{}",
         'printing_error': "!! 파일 인쇄 오류\n{}",
         'prompt_choose': "수정할 스풀 선택",
@@ -357,6 +411,7 @@ TRANSLATIONS = {
         'prompt_leveling_on': "레벨링으로 인쇄",
         'prompt_map_color': "파일 색상을 스풀에 매핑",
         'prompt_material': "로드된 재료",
+        'remove_from_extruder': "익스트루더에서 제거",
         'reset_colors': "색상 초기화",
         'select_action': "작업 선택",
         'select_color': "색상 선택",
@@ -366,10 +421,13 @@ TRANSLATIONS = {
         'spool': "스풀 내",
         'unload_error': "언로드 오류: {}",
         'unload_success': "언로드 시작",
-        'unload': "언로드",
-        'remove_from_extruder': "익스트루더에서 제거"
+        'unload': "언로드"
     },
     'pt': {
+        'auto_assign_no_color_match': "Atribuição auto: Não foi possível corresponder a cor para {}",
+        'auto_assign_no_material_match': "Atribuição auto: Não foi possível corresponder o material para {}",
+        'auto_assign_success': "Atribuição auto: {} correspondido ao slot {}",
+        'auto_assign_weak_match': "Atribuição auto: {} correspondido ao slot {}, correspondência fraca",
         'auto_select_colors': "Seleção auto de cores",
         'cancel': "Cancelar",
         'change_color': "Alterar cor",
@@ -387,9 +445,11 @@ TRANSLATIONS = {
         'error_tool': "T{} inválido: {}. Válido: 1-4",
         'error_type': "Tipo de material inválido: {}. Válido: {}",
         'file_tool': "No arquivo",
+        'hide_color_selection': "Ocultar seleção de cores, imprimir sem IFS",
         'load_error': "!! Erro de carregamento/descarga\n{}",
         'load_success': "Carregamento iniciado",
         'load': "Carregar",
+        'no_prepared_data_scanning': "Dados de cores preparados não encontrados. Escaneando arquivo",
         'no_response': "!! Sem resposta da impressora. Configure via: \"Configurações\" -> \"WiFi\" -> \"Modo de Rede\" -> \"Apenas Local\"\n{}",
         'printing_error': "!! Erro na impressão do arquivo\n{}",
         'prompt_choose': "Selecione uma bobina para modificar",
@@ -397,6 +457,7 @@ TRANSLATIONS = {
         'prompt_leveling_on': "Imprimir com nivelamento da mesa",
         'prompt_map_color': "Mapear cor do arquivo para bobina",
         'prompt_material': "Material carregado",
+        'remove_from_extruder': "Remover da extrusora",
         'reset_colors': "Redefinir cores",
         'select_action': "Selecionar ação",
         'select_color': "Selecionar cor",
@@ -406,10 +467,13 @@ TRANSLATIONS = {
         'spool': "na bobina",
         'unload_error': "Erro ao descarregar: {}",
         'unload_success': "Descarga iniciada",
-        'unload': "Descarregar",
-        'remove_from_extruder': "Remover da extrusora"
+        'unload': "Descarregar"
     },
     "cs": {
+        'auto_assign_no_color_match': "Auto-přiřazení: Nepodařilo se shodovat barvu pro {}",
+        'auto_assign_no_material_match': "Auto-přiřazení: Nepodařilo se shodovat materiál pro {}",
+        'auto_assign_success': "Auto-přiřazení: {} přiřazeno k slotu {}",
+        'auto_assign_weak_match': "Auto-přiřazení: {} přiřazeno k slotu {}, slabá shoda",
         'auto_select_colors': "Automatický výběr barev",
         "cancel": "Zrušit",
         "change_color": "Změnit barvu",
@@ -427,9 +491,11 @@ TRANSLATIONS = {
         "error_tool": "Neplatný T{}: {}. Povoleno: 1–4",
         "error_type": "Neplatný typ materiálu: {}. Povoleno: {}",
         "file_tool": "Soubor",
+        'hide_color_selection': "Skrýt výběr barev, tisknout bez IFS",
         "load_error": "!! Chyba při zavádění / vyndávání\n{}",
         "load_success": "Zavádění spuštěno",
         "load": "Zavést",
+        'no_prepared_data_scanning': "Předpřipravená barevná data nebyla nalezena. Skenování souboru",
         "no_response": "!! Tiskárna neodpovídá. Nastavte tiskárnu: „Nastavení“ → „WiFi“ → „Síťový režim“ → „Pouze místní sítě“\n{}",
         "printing_error": "!! Chyba tisku souboru\n{}",
         "prompt_choose": "Vyberte cívku ke změně",
@@ -437,6 +503,7 @@ TRANSLATIONS = {
         "prompt_leveling_on": "Tisk s mapou podložky",
         "prompt_map_color": "Přiřaďte barvu ze souboru k cívce",
         "prompt_material": "Nahraný materiál",
+        'remove_from_extruder': "Vyjmout z extruderu",
         "reset_colors": "Obnovit barvy",
         "select_action": "Vyberte akci",
         "select_color": "Vyberte barvu",
@@ -446,10 +513,13 @@ TRANSLATIONS = {
         "spool": "Cívka",
         "unload_error": "Chyba vyndávání: {}",
         "unload_success": "Vyndávání spuštěno",
-        "unload": "Vyndat",
-        'remove_from_extruder': "Vyjmout z extruderu"
+        "unload": "Vyndat"
     },
     'tr': {
+        'auto_assign_no_color_match': "Otomatik atama: {} için renk eşleşmedi",
+        'auto_assign_no_material_match': "Otomatik atama: {} için malzeme eşleşmedi",
+        'auto_assign_success': "Otomatik atama: {} yuva {} ile eşleşti",
+        'auto_assign_weak_match': "Otomatik atama: {} yuva {} ile eşleşti, zayıf eşleşme",
         'auto_select_colors': "Renkleri otomatik seç",
         'cancel': "İptal",
         'change_color': "Rengi değiştir",
@@ -467,9 +537,11 @@ TRANSLATIONS = {
         'error_tool': "Geçersiz T{}: {}. Geçerli: 1-4",
         'error_type': "Geçersiz malzeme türü: {}. Geçerli: {}",
         'file_tool': "Dosyada",
+        'hide_color_selection': "Renk seçimini gizle, IFS olmadan yazdır",
         'load_error': "!! Yükleme/boşaltma hatası\n{}",
         'load_success': "Yükleme başlatıldı",
         'load': "Yükle",
+        'no_prepared_data_scanning': "Önceden hazırlanmış renk verisi bulunamadı. Dosya taranıyor",
         'no_response': "!! Yazıcıdan yanıt alınamadı. Şu yolla yapılandırın: \"Ayarlar\" -> \"WiFi\" -> \"Ağ Modu\" -> \"Sadece Yerel\"\n{}",
         'printing_error': "!! Dosya yazdırma hatası\n{}",
         'prompt_choose': "Değiştirmek için bir makara seçin",
@@ -477,6 +549,7 @@ TRANSLATIONS = {
         'prompt_leveling_on': "Seviyeleme Açık",
         'prompt_map_color': "Dosya rengini makarayla eşleştir",
         'prompt_material': "Yüklü malzeme",
+        'remove_from_extruder': "Ekstruderden çıkar",
         'reset_colors': "Renkleri sıfırla",
         'select_action': "Bir işlem seçin",
         'select_color': "Renk seçin",
@@ -486,8 +559,7 @@ TRANSLATIONS = {
         'spool': "makara",
         'unload_error': "Boşaltma hatası: {}",
         'unload_success': "Boşaltma başlatıldı",
-        'unload': "Boşalt",
-        'remove_from_extruder': "Ekstruderden çıkar"
+        'unload': "Boşalt"
     }
 }
       
@@ -496,7 +568,6 @@ AUTO_ASSIGN_MATERIAL_FAILURE =  1 << 1 # At least one material could not be matc
 AUTO_ASSIGN_COLOR_FAILURE =     1 << 2 # At least one color could not be matched (due to missing file data, or no materials loaded at all)
 AUTO_ASSIGN_COLOR_WEAK =        1 << 3 # At least one matched color is only a "weak" match
 AUTO_ASSIGN_DUPLICATE =         1 << 4 # Two (or more) colors are matched to the same slot
-AUTO_ASSIGN_INVALID_SLOT_DATA = 1 << 5 # At least one slot's color could not be parsed
 
 AUTO_ASSIGN_WEAK_COLOR_CUTOFF = (63 ** 2) * 3 # If the squares of each components difference added together, exceed this, it's considered a weak match
 
@@ -817,8 +888,6 @@ class zmod_color:
         fname = gcmd.get('FILENAME', '')
         if fname == '':
             raise gcmd.error(self._t('error_no_filename'))
-        
-        gcmd.respond_raw("// Loading file colors")
                     
         result_colors = []
         highest_result_color = -1
@@ -836,7 +905,7 @@ class zmod_color:
                     try:
                         index = int(line[1:])
                         if index not in result_colors:
-                           result_colors += [index]
+                            result_colors += [index]
                         highest_result_color = max(highest_result_color, index)
                     except:
                         pass
@@ -850,11 +919,10 @@ class zmod_color:
                         break
                     if line.startswith('; header_block_end'):
                         if scan_files_setting == 0:
-                            gcmd.respond_raw("// Pre-prepared color data not found")
                             tool_count = self.get_allowed_tool_count(gcmd)
                             return [(i, '', '') for i in range(tool_count)]
                         else:
-                            gcmd.respond_raw("// Pre-prepared color data not found. Scanning file")
+                            gcmd.respond_raw(f"// {self._t('no_prepared_data_scanning')}")
 
         if color_data_line == '':
             filament_colors = filament_color_line.strip().split(';')
@@ -866,27 +934,19 @@ class zmod_color:
                 filament_types = []
 
             if len(result_colors) == 0:
-              result_colors = [0]
-              highest_result_color = 0
+                result_colors = [0]
+                highest_result_color = 0
 
             if len(filament_colors) <= highest_result_color:
                 filament_colors += [''] * (highest_result_color + 1 - len(filament_colors))
 
             if len(filament_types) <= highest_result_color:
                 filament_types += [''] * (highest_result_color + 1 - len(filament_types))
-
-            gcmd.respond_raw("// Scanning file colors complete")
         else:
             color_data_params = color_data_line.strip().split('|')
             result_colors = [int(color_index) for color_index in color_data_params[0].split(',')]
             filament_colors = color_data_params[1].split(',')
             filament_types = color_data_params[2].split(',')
-            
-            gcmd.respond_raw("// Pre-prepared color data found")
-          
-        gcmd.respond_raw(f"// Used color slots: {str(result_colors)}")
-        gcmd.respond_raw(f"// Color slots: {str(filament_colors)}")
-        gcmd.respond_raw(f"// Materials: {str(filament_types)}")
 
         return sorted([(tool_index, filament_colors[tool_index], filament_types[tool_index]) for tool_index in result_colors])
       
@@ -906,8 +966,6 @@ class zmod_color:
                 slot['red'] = -1
                 slot['green'] = -1
                 slot['blue'] = -1
-                result_flags |= AUTO_ASSIGN_INVALID_SLOT_DATA
-                output_text += [f"// Auto-assignment: *WARNING* Error loading color for slot {slot['ID']}"]
       
         tools = [0] * len(orig_tools)
         file_colors = self.file_colors
@@ -925,6 +983,7 @@ class zmod_color:
                         result_flags |= AUTO_ASSIGN_MATERIAL_FAILURE
                         this_material_failure = True
                         candidates = slots
+                        output_text += [f"// {self._t('auto_assign_no_material_match', tool_name)}"]
                     else:
                         result_flags |= AUTO_ASSIGN_ANY_SUCCESS
                         this_material_failure = False
@@ -933,9 +992,7 @@ class zmod_color:
                         result_flags |= AUTO_ASSIGN_COLOR_FAILURE
                         if not this_material_failure:
                             tools[iTool] = int(candidates[0]['ID'])
-                            output_text += [f"// Auto-assignment: No color match for {tool_name}"]
-                        else:
-                            output_text += [f"// Auto-assignment: *CRITICAL* No color or material match for {tool_name}"]
+                        output_text += [f"// {self._t('auto_assign_no_color_match', tool_name)}"]
                         continue
                         
                     closest_slot = None
@@ -962,9 +1019,7 @@ class zmod_color:
                         result_flags |= AUTO_ASSIGN_COLOR_FAILURE
                         if not this_material_failure:
                             tools[iTool] = int(candidates[0]['ID'])
-                            output_text += [f"// Auto-assignment: No color match for {tool_name}"]
-                        else:
-                            output_text += [f"// Auto-assignment: *CRITICAL* No color or material match for {tool_name}"]
+                        output_text += [f"// {self._t('auto_assign_no_color_match', tool_name)}"]
                         continue
                       
                     result_flags |= AUTO_ASSIGN_ANY_SUCCESS  
@@ -972,12 +1027,10 @@ class zmod_color:
                     if closest_slot_difference >= AUTO_ASSIGN_WEAK_COLOR_CUTOFF:
                         result_flags |= AUTO_ASSIGN_COLOR_WEAK
                       
-                    if this_material_failure:
-                        output_text += [f"// Auto-assignment: *CRITICAL* No material match for {tool_name}"]
-                    elif closest_slot_difference >= AUTO_ASSIGN_WEAK_COLOR_CUTOFF:
-                        output_text += [f"// Auto-assignment: {tool_name} weakly matched to slot {closest_slot['ID']}"]  
+                    if closest_slot_difference >= AUTO_ASSIGN_WEAK_COLOR_CUTOFF:
+                        output_text += [f"// {self._t('auto_assign_weak_match', tool_name, closest_slot['ID'])}"]  
                     else:
-                        output_text += [f"// Auto-assignment: {tool_name} matched to slot {closest_slot['ID']}"]  
+                        output_text += [f"// {self._t('auto_assign_success', tool_name, closest_slot['ID'])}"]  
                         
                     tools[iTool] = int(closest_slot['ID'])
                     
@@ -1088,9 +1141,9 @@ class zmod_color:
                 
                 buttons_per_group = 4
                 if len(color_indexes) < 10:
-                  buttons_per_group = 3
+                    buttons_per_group = 3
                 if len(color_indexes) < 7:
-                  buttons_per_group = 2
+                    buttons_per_group = 2
                   
                 button_index = 0
 
@@ -1174,10 +1227,7 @@ class zmod_color:
                 gcmd.respond_raw(f"// {fname}")
                 gcmd.respond_raw(f"// {leveling_text}")
                 gcmd.respond_raw("// IFS OFF // SAVE_ZMOD_DATA SILENT=2")
-                if self.lang == 'ru':
-                    gcmd.respond_raw("Скрыть выбор цвета, печатать без IFS")
-                else:
-                    gcmd.respond_raw("Hide color selection, print without IFS");
+                gcmd.respond_raw(self._t('hide_color_selection'));
                 if self.display:
                     data = {
                         "fileName": fname,
